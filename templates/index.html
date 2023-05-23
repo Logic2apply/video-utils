@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+Downloader
+{% endblock title %}
+
+{% block body %}
+<div class="container my-4">
+    <form class="row g-3" method="post" action="/" id="formgp">
+        <div class="col-12">
+            <label for="url" class="form-label">Enter Youtube URL <span class="text-danger" id="urlVal"></span></label>
+            <input type="url" class="form-control" id="url" name="url">
+        </div>
+        <div class="col-md-6" id="typediv">
+            <label for="type" class="form-label">Type</label>
+            <select id="type" class="form-select" name="type">
+                <option selected value="video">Video</option>
+                <option value="audio">Audio</option>
+            </select>
+        </div>
+        <div class="col-md-6" id="extdiv">
+            <label for="extension" class="form-label">Extension</label>
+            <select id="extension" class="form-select" name="extension">
+                <option selected value="mp4">mp4</option>
+                <option value="webm">webm</option> 
+                <option value="3gpp">3gpp</option>
+            </select>
+        </div>
+        <div class="col-md-6" id="resdiv">
+            <label for="res" class="form-label" id="resLabel">Resolution</label>
+            <select id="res" class="form-select" name="res">
+                <option selected value="mp4">720p</option>
+                <option value="webm">1080p</option> 
+            </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary" id="download" disabled>Download</button>
+        </div>
+    </form>
+</div>
+{% endblock body %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock js %}
