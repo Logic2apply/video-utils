@@ -90,5 +90,5 @@ const loadRes =  async (event) => {
     }
 }
 
-document.getElementById("type").addEventListener("click", loadExt);
-document.getElementById("type").addEventListener("click", loadRes);
+document.getElementById("type").addEventListener("change", loadExt);
+document.getElementById("type").addEventListener("change", loadRes);

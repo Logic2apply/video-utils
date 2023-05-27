@@ -1,6 +1,6 @@
 import json
 from moviepy.editor import VideoFileClip, AudioFileClip
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_file, send_from_directory
 import re
 from pytube import YouTube
 import datetime
@@ -22,7 +22,7 @@ def clean_filename(name):
         # characters.  I'm not sure why this is, as the file name limit should be around 240. But either way, this
         # method has been adapted to work with the results that I am consistently getting.
         forbidden_chars = '"*\\/\'.|?:<>'
-        filename = (''.join([x if x not in forbidden_chars else '#' for x in name])).replace('  ', ' ').strip()
+        filename = (''.join([x if x not in forbidden_chars else '#' for x in name])).strip().replace(' ', '-')
         if len(filename) >= 176:
             filename = filename[:170] + '...'
         return filename 
@@ -78,7 +78,7 @@ def index():
                 vid_path = download_youtube_video_audio(url, filetype, extension, res)
                 aud_path = download_youtube_video_audio(url, "audio", "mp3", max_bitrate(url))
                 output_path = mergeAudVid(aud_path[2], vid_path[2], vid_path[1])
-                return send_from_directory(output_path[0], output_path[1], as_attachment=True)
+                return send_file(output_path[0]+ output_path[1], as_attachment=True)
 
             elif filetype == "audio":
                 path = download_youtube_video_audio(url, filetype, extension, res)
