@@ -78,11 +78,11 @@ def index():
                 vid_path = download_youtube_video_audio(url, filetype, extension, res)
                 aud_path = download_youtube_video_audio(url, "audio", "mp3", max_bitrate(url))
                 output_path = mergeAudVid(aud_path[2], vid_path[2], vid_path[1])
-                return send_from_directory(output_path[0], output_path[1], as_attachment=True)
+                return send_from_directory(output_path[0], output_path[1], as_attachment=True, attachment_filename=vid_path[1])
 
             elif filetype == "audio":
                 path = download_youtube_video_audio(url, filetype, extension, res)
-                return send_from_directory(path[0], path[1], as_attachment=True)
+                return send_from_directory(path[0], path[1], as_attachment=True, attachment_filename=path[1])
     return render_template("index.html")
 
 @app.route("/resolution/", methods=["POST"])
